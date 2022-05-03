@@ -18,7 +18,8 @@ public class QuestionService implements IQuestionService{
 
     @Override
     public Question create(String title, Level level, Integer difficultyScore) {
-     return null;
+        Question q = questionRepository.save(new Question(title, level, difficultyScore));
+        return q;
     }
 
     // TODO: CRIO_TASK_MODULE_SERVICES
@@ -28,7 +29,10 @@ public class QuestionService implements IQuestionService{
 
     @Override
     public List<Question> getAllQuestionLevelWise(Level level) {
-     return Collections.emptyList();
+        if(level == null ){
+            return questionRepository.findAll();
+        }
+        return questionRepository.findAllQuestionLevelWise(level);
     }
     
 }

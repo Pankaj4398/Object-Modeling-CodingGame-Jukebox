@@ -57,7 +57,7 @@ public class ContestService implements IContestService {
     // Return a specific List of Random Questions as specified by numQuestion.
 
     private List<Question> pickQuestionsList(final List<Question> questions,final Integer numQuestion){
-     return Collections.emptyList();
+        return questions.subList(0, numQuestion);
     }
 
     // TODO: CRIO_TASK_MODULE_SERVICES
@@ -67,7 +67,10 @@ public class ContestService implements IContestService {
 
     @Override
     public List<Contest> getAllContestLevelWise(Level level) {
-     return Collections.emptyList();
+        if(level == null){
+            return contestRepository.findAll();
+        }
+        return contestRepository.findAllContestLevelWise(level);
     }
 
     @Override
@@ -90,7 +93,7 @@ public class ContestService implements IContestService {
         });
         contest.endContest();
         Contest endedContest = contestRepository.save(contest);
-       return new ContestSummaryDto(endedContest,userResultList);
+        return new ContestSummaryDto(endedContest,userResultList);
     }
 
     // TODO: CRIO_TASK_MODULE_SERVICES
@@ -98,6 +101,14 @@ public class ContestService implements IContestService {
     // Hint :- Refer Unit Testcases for runContest method
     
     private void validateContest(final Contest contest, final String contestCreator) throws InvalidContestException {
+        //Optional<User> u = userRepository.findByName(contestCreator);
+    
+        if(/*!(u.isPresent()) ||*/ !(contest.getCreator().getName().equals(contestCreator)) || contest.getContestStatus() != ContestStatus.NOT_STARTED){
+            throw new InvalidContestException("Creator mismatch");
+        }
+        // if(contest.getContestStatus() != ContestStatus.NOT_STARTED){
+        //     throw new InvalidContestException("Creator mismatch");
+        // }
     }
 
     //Reference:- https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/

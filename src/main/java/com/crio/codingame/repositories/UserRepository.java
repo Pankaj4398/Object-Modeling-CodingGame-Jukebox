@@ -40,7 +40,9 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public List<User> findAll() {
-     return Collections.emptyList();
+        return userMap.values()
+        .stream()
+        .collect(Collectors.toList());
     }
 
     @Override
@@ -51,25 +53,29 @@ public class UserRepository implements IUserRepository{
     @Override
     public boolean existsById(String id) {
         // TODO Auto-generated method stub
-        return false;
+        User temp = userMap.get(id);
+        if(temp == null){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void delete(User entity) {
         // TODO Auto-generated method stub
-        
+        userMap.remove(entity.getId());        
     }
 
     @Override
     public void deleteById(String id) {
         // TODO Auto-generated method stub
-        
+        userMap.remove(id);        
     }
 
     @Override
     public long count() {
         // TODO Auto-generated method stub
-        return 0;
+        return userMap.values().stream().count();
     }
 
     // TODO: CRIO_TASK_MODULE_SERVICES
@@ -78,7 +84,7 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public Optional<User> findByName(String name) {
-     return Optional.empty();
+     return Optional.ofNullable(userMap.values().stream().filter(user -> name.equals(user.getName())).findAny()).get();
     }
     
 }

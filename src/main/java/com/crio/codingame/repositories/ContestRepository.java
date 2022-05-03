@@ -43,7 +43,9 @@ public class ContestRepository implements IContestRepository {
 
     @Override
     public List<Contest> findAll() {
-     return Collections.emptyList();
+        return contestMap.values()
+        .stream()
+        .collect(Collectors.toList());
     }
 
     @Override
@@ -54,25 +56,33 @@ public class ContestRepository implements IContestRepository {
     @Override
     public boolean existsById(String id) {
         // TODO Auto-generated method stub
-        return false;
+        Contest temp = contestMap.get(id);
+        if(temp == null){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void delete(Contest entity) {
         // TODO Auto-generated method stub
-        
+        if(entity.getId() == null){
+            return;
+        }
+        contestMap.remove(entity.getId());
     }
 
     @Override
     public void deleteById(String id) {
         // TODO Auto-generated method stub
+        contestMap.remove(id);
         
     }
 
     @Override
     public long count() {
         // TODO Auto-generated method stub
-        return 0;
+        return contestMap.values().stream().count();
     }
 
     // TODO: CRIO_TASK_MODULE_SERVICES
@@ -81,7 +91,10 @@ public class ContestRepository implements IContestRepository {
 
     @Override
     public List<Contest> findAllContestLevelWise(Level level) {
-     return Collections.emptyList();
+        return contestMap.values()
+                .stream()
+                .filter(contest -> level == contest.getLevel())
+                .collect(Collectors.toList());
     }
 
     

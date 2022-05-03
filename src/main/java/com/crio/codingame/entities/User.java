@@ -60,7 +60,7 @@ public class User extends BaseEntity {
         if(this.getContests().isEmpty()){
             return false;
         }
-        return true;
+        return this.getContests().stream().anyMatch(c -> c.equals(contest));
     }
 
     public void addContestQuestion(Contest contest, List<Question> qList){

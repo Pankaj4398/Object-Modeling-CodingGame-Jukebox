@@ -2,7 +2,6 @@
 package com.crio.codingame.entities;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,10 +41,18 @@ public class Contest extends BaseEntity{
     //  2. You can use "./gradlew build" to check if your code builds successfully.
 
     private void validateQuestionList(List<Question> qList, Level contestLevel) throws InvalidContestException {
-        Iterator<Question> it = qList.iterator();
-        while(it.hasNext()){
-            Question q = it.next();
-            if(!(q.getLevel().equals(this.getLevel()))){
+        // Iterator<Question> it = qList.iterator();
+        // while(it.hasNext()){
+        //     Question q = it.next();
+        //     if(!(q.getLevel() == this.getLevel())){
+        //         throw new InvalidContestException();
+        //     }
+        // }
+        // if(qList.isEmpty()){
+        //     throw new QuestionNotFoundException();
+        // }
+        for (Question question : qList) {
+            if(!(question.getLevel().equals(contestLevel))){
                 throw new InvalidContestException();
             }
         }
@@ -55,7 +62,9 @@ public class Contest extends BaseEntity{
     // Change the Contest Status to ENDED
 
     public void endContest(){
-        this.contestStatus = contestStatus.ENDED;
+        if(this.contestStatus == ContestStatus.IN_PROGRESS){
+            this.contestStatus = ContestStatus.ENDED;
+        }
     }
     
     public String getName() {
