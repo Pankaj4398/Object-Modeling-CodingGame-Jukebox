@@ -27,7 +27,8 @@ public class Contest extends BaseEntity{
     public Contest(String name, List<Question> questions, Level level, User creator,
             ContestStatus contestStatus) {
         this.name = name;
-        this.questions = new ArrayList<>();
+        this.questions = questions;
+        //this.questions = new ArrayList<>();
         validateQuestionList(questions, level);
         this.level = level;
         this.creator = creator;
