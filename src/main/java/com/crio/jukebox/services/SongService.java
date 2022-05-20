@@ -35,7 +35,7 @@ public class SongService implements ISongService {
         //fetch song from songRepo
         final Song s = songRepository.findById(songId).get();
         if(! p.checkIfSongExist(s)){ //check song exist or not
-            throw new SongNotFoundException("Song Not Found in the current active playlist.");
+            throw new SongNotFoundException("Given song id is not a part of the active playlist");
         }
 
         UserPlaylistCurrentSong userPlaylistCurrentSong = new UserPlaylistCurrentSong(p, s);
