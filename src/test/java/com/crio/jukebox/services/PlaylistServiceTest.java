@@ -53,7 +53,7 @@ public class PlaylistServiceTest {
 
     private static List<Song> songs = new ArrayList<>();
 
-    @BeforeAll
+    @BeforeAll //@BeforeEach but not every test cases uses it
     public static void setUp(){
         final Artist a1 = new Artist("Ed Sheeran");
         final Artist a2 = new Artist("Cardi.B");
