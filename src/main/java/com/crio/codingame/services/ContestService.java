@@ -103,12 +103,15 @@ public class ContestService implements IContestService {
     private void validateContest(final Contest contest, final String contestCreator) throws InvalidContestException {
         //Optional<User> u = userRepository.findByName(contestCreator);
     
-        if(/*!(u.isPresent()) ||*/ !(contest.getCreator().getName().equals(contestCreator)) || contest.getContestStatus() != ContestStatus.NOT_STARTED){
+        if(/*!(u.isPresent()) ||*/ !(contest.getCreator().getName().equals(contestCreator))){
             throw new InvalidContestException("Creator mismatch");
         }
-        // if(contest.getContestStatus() != ContestStatus.NOT_STARTED){
-        //     throw new InvalidContestException("Creator mismatch");
-        // }
+        if(contest.getContestStatus() == ContestStatus.IN_PROGRESS){
+             throw new InvalidContestException("Contest is in progression");
+        }
+        if(contest.getContestStatus() == ContestStatus.ENDED){
+            throw new InvalidContestException("Contest is ended");
+        }
     }
 
     //Reference:- https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/

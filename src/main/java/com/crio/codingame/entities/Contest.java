@@ -65,6 +65,10 @@ public class Contest extends BaseEntity{
         if(this.contestStatus == ContestStatus.IN_PROGRESS){
             this.contestStatus = ContestStatus.ENDED;
         }
+        // if(this.contestStatus == ContestStatus.NOT_STARTED){
+        //     this.contestStatus = ContestStatus.IN_PROGRESS;
+        // }
+        //this.contestStatus = ContestStatus.ENDED;
     }
     
     public String getName() {
