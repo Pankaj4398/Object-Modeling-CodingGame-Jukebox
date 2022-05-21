@@ -2,7 +2,6 @@ package com.crio.jukebox.services;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -173,7 +172,9 @@ public class PlaylistServiceTest {
     @DisplayName("deletePlaylist method Should Throw PlaylistNotFoundException If Given Playlist IDs do not exist")
     public void deletePlaylist_ShouldThrowPlaylistNotFoundExceptionIfPlaylistIdNotExist(){
         //Arrange
-        User user = mock(User.class);
+        //User user = mock(User.class);
+        // mocking should be done only of the dependency you are injecting or services and function you are using
+        User user = new User("1", "Pankaj");
         when(userRepositoryMock.findById(anyString())).thenReturn(Optional.of(user));
         when(playlistRepositoryMock.findById(anyString())).thenReturn(Optional.empty());
         //Act and Assert
@@ -234,15 +235,16 @@ public class PlaylistServiceTest {
     @DisplayName("addSongPlaylist method Should Throw SongNotFoundException If Song Ids not exist")
     public void addSongPlaylist_ShouldThrowSongNotFoundException(){
         //Arrange
-        User user = mock(User.class);
-        Playlist playlist = mock(Playlist.class);
+        // User user = mock(User.class);
+        // Playlist playlist = mock(Playlist.class);
+        // mocking should be done only of the dependency you are injecting or services and function you are using
         
-        // Playlist playlist = new Playlist("1", "PLAYLIST_1", songs);
-        // User user = new User("1", "Pankaj", List.of(playlist));
+        Playlist playlist = new Playlist("1", "PLAYLIST_1", songs);
+        User user = new User("1", "Pankaj", List.of(playlist));
 
         when(userRepositoryMock.findById(anyString())).thenReturn(Optional.of(user));
         when(playlistRepositoryMock.findById(anyString())).thenReturn(Optional.of(playlist));
-        when(user.checkIfPlaylistExist(playlist)).thenReturn(true);
+        //when(user.checkIfPlaylistExist(playlist)).thenReturn(true);
         when(songRepositoryMock.findById(anyString())).thenReturn(Optional.empty());
         //Act and Assert
         Assertions.assertThrows(SongNotFoundException.class, () -> playlistService.addSongPlaylist("1", "1", List.of("31", "32")));
@@ -250,7 +252,7 @@ public class PlaylistServiceTest {
         verify(playlistRepositoryMock, times(1)).findById(anyString());
         verify(songRepositoryMock, times(1)).findById(anyString());
         //verify(mock)
-        verify(user, atLeast(1)).checkIfPlaylistExist(any(Playlist.class));
+        //verify(user, atLeast(1)).checkIfPlaylistExist(any(Playlist.class));
     }
 
     @Test

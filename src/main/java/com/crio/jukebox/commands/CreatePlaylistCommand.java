@@ -3,7 +3,7 @@ package com.crio.jukebox.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.crio.codingame.exceptions.UserNotFoundException;
+import com.crio.jukebox.exceptions.UserNotFoundException;
 import com.crio.jukebox.dtos.PlaylistSummaryDto;
 import com.crio.jukebox.exceptions.SongNotFoundException;
 import com.crio.jukebox.services.IPlaylistService;
