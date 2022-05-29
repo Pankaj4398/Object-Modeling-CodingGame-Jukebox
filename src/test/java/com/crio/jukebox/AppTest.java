@@ -69,9 +69,9 @@ public class AppTest {
         //Act
         App.run(arguments);
         
-        int count1 = outputStreamCaptor.toString().trim().compareTo("");
-        int count2 = expectedOutput.compareTo("");
-        int count = outputStreamCaptor.toString().trim().compareTo(expectedOutput);
+        // int count1 = outputStreamCaptor.toString().trim().compareTo("");
+        // int count2 = expectedOutput.compareTo("");
+        // int count = outputStreamCaptor.toString().trim().compareTo(expectedOutput);
         //System.out.println(count1 +" "+ count2);
 
         //Assert

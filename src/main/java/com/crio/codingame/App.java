@@ -24,6 +24,7 @@ public class App {
             run(commandLineArgs);
         }
     }
+    
     public static void run(List<String> commandLineArgs) {
         ApplicationConfig applicationConfig = new ApplicationConfig();
         CommandInvoker commandInvoker = applicationConfig.getCommandInvoker();
